@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MyApplication" default="main" basedir=".">
+
+	<property file="./build/properties/default.properties" />
+
+	<if>
+		<isset property="build.env" />
+		<then>
+			<echo message="Overwriting default.properties with ${build.env}.properties" />
+			<property file="./build/properties/${build.env}.properties" override="true" />
+		</then>
+	</if>
+
+	<target name="setup">
+		<echo message="+------------------------------------------+"/>
+		<echo message="|                                          |"/>
+		<echo message="| Setting Up The Project                   |"/>
+		<echo message="|                                          |"/>
+		<echo message="+------------------------------------------+"/>
+		<exec command="php artisan migrate --package=cartalyst/sentry" escape="false" />
+		<exec command="php artisan migrate" escape="false" />
+	</target>
+</project>
